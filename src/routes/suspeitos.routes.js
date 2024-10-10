@@ -9,28 +9,28 @@ let suspeitos = [
     nome: "Marcelo Carboni",
     profissao: "Docente",
     envolvimento: "sim",
-    nivel: "médio", // Concorrente ao segundo mandato
+    nivel: "médio", // Concorrente ao nivel mandato
   },
   {
     id: Math.floor(Math.random() * 1000000),
     nome: "Marcelo Carboni",
     profissão: "Docente",
     envolvimento: "sim",
-    nivel: "médio", // Concorrente ao segundo mandato
+    nivel: "médio", // Concorrente ao nivel mandato
   },
   {
     id: Math.floor(Math.random() * 1000000),
     nome: "Thiago Ferreira",
     profissao: "Dev",
     envolvimento: "sim",
-    nivel: "Alto", // Concorrente ao segundo mandato
+    nivel: "Alto", // Concorrente ao nivel mandato
   },
   {
     id: Math.floor(Math.random() * 1000000),
     nome: "Victor Dougilo",
     profissao: "estudante",
     envolvimento: "sim",
-    nivel: "baixo", // Concorrente ao segundo mandato
+    nivel: "baixo", // Concorrente ao nivel mandato
   },
 ];
 // Rota para listar todos os suspeitos
@@ -41,13 +41,13 @@ suspeitosRoutes.get("/", (req, res) => {
 suspeitosRoutes.post("/", (req, res) => {
   const { nome, profissao, envolvimento, nivel } = req.body;
 
-  // Validação dos campos nome e partido
+  // Validação dos campos nome e profissao
   if (!nome || !profissao) {
     return res.status(400).send({
       message: "O nome ou o profissão não foi preenchido, cabeçuda!",
     });
   }
-  if (!nivel || !suspeito) {
+  if (!envolvimento || !nivel) {
     return res.status(400).send({
       message: "O nivel ou o suspeito não foi preenchido, cabeçuda!",
     });
@@ -63,11 +63,11 @@ suspeitosRoutes.post("/", (req, res) => {
   };
 
   // Adiciona o novo suspeito ao array de suspeitos
-  suspeitos.push(novosuspeito);
+  suspeitos.push(novoSuspeito);
 
   return res.status(201).json({
     message: "suspeito cadastrado com sucesso!",
-    novosuspeito,
+    novoSuspeito,
   });
 });
 
@@ -106,15 +106,14 @@ suspeitosRoutes.put("/:id", (req, res) => {
   // Validação dos campos nome e profissão
   if (!nome || !profissao) {
     return res.status(400).send({
-      message: "O nome ou o partido não foi preenchido, criança aleatória!",
+      message: "O nome ou o profissao não foi preenchido, criança aleatória!",
     });
   }
 
   suspeito.nome = nome;
-  suspeito.partido = partido;
-  suspeito.idade = idade;
-  suspeito.segundo = segundo;
-  suspeito.propostas = propostas;
+  suspeito.profissao = profissao;
+  suspeito.envolvimento = envolvimento;
+  suspeito.nivel = nivel;
 
   return res.status(200).json({
     message: "suspeito atualizado com sucesso!",
