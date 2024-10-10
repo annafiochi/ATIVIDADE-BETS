@@ -2,12 +2,12 @@ import { Router } from "express";
 
 const suspeitosRoutes = Router();
 
-// Array com candidatos pré-cadastrados
+// Array com suspeitos pré-cadastrados
 let suspeitos = [
   {
     id: Math.floor(Math.random() * 1000000),
     nome: "Marcelo Carboni",
-    profissão: "Docente",
+    profissao: "Docente",
     envolvimento: "sim",
     nivel: "médio", // Concorrente ao segundo mandato
   },
@@ -21,136 +21,127 @@ let suspeitos = [
   {
     id: Math.floor(Math.random() * 1000000),
     nome: "Thiago Ferreira",
-    profissão: "Dev",
+    profissao: "Dev",
     envolvimento: "sim",
     nivel: "Alto", // Concorrente ao segundo mandato
   },
   {
     id: Math.floor(Math.random() * 1000000),
     nome: "Victor Dougilo",
-    profissão: "estudante",
+    profissao: "estudante",
     envolvimento: "sim",
     nivel: "baixo", // Concorrente ao segundo mandato
   },
 ];
-
-
-
-
-// Rota para listar todos os candidatos
+// Rota para listar todos os suspeitos
 suspeitosRoutes.get("/", (req, res) => {
   return res.status(200).json(suspeitos);
 });
-
-// Rota para cadastrar um novo candidato
-candidatosRoutes.post("/", (req, res) => {
-  const { nome, partido, idade, segundo, propostas } = req.body;
+// Rota para cadastrar um novo suspeito
+suspeitosRoutes.post("/", (req, res) => {
+  const { nome, profissao, envolvimento, nivel } = req.body;
 
   // Validação dos campos nome e partido
-  if (!nome || !partido) {
+  if (!nome || !profissao) {
     return res.status(400).send({
-      message: "O nome ou o partido não foi preenchido, criança aleatória!",
+      message: "O nome ou o profissão não foi preenchido, cabeçuda!",
+    });
+  }
+  if (!nivel || !suspeito) {
+    return res.status(400).send({
+      message: "O nivel ou o suspeito não foi preenchido, cabeçuda!",
     });
   }
 
-  // Validação de idade
-  if (idade < 18) {
-    return res.status(400).send({
-      message:
-        "O candidato não possui idade suficiente para participar deste debate!",
-    });
-  }
-
-  // Criação de um novo candidato
-  const novoCandidato = {
+  // Criação de um novo suspeito
+  const novoSuspeito = {
     id: Math.floor(Math.random() * 1000000),
     nome,
-    partido,
-    idade,
-    segundo,
-    propostas,
+    profissao,
+    envolvimento,
+    nivel,
   };
 
-  // Adiciona o novo candidato ao array de candidatos
-  candidatos.push(novoCandidato);
+  // Adiciona o novo suspeito ao array de suspeitos
+  suspeitos.push(novosuspeito);
 
   return res.status(201).json({
-    message: "Candidato cadastrado com sucesso!",
-    novoCandidato,
+    message: "suspeito cadastrado com sucesso!",
+    novosuspeito,
   });
 });
 
-// Rota para buscar um candidato pelo id
-candidatosRoutes.get("/:id", (req, res) => {
+// Rota para buscar um suspeito pelo id
+suspeitosRoutes.get("/:id", (req, res) => {
   const { id } = req.params;
 
-  // Busca um candidato pelo id no array de candidatos
-  const candidato = candidatos.find((politico) => politico.id == id);
+  // Busca um suspeito pelo id no array de suspeitos
+  const suspeito = suspeitos.find((suspects) => suspects.id == id);
 
-  // Verifica se o candidato foi encontrado
-  if (!candidato) {
+  // Verifica se o suspeito foi encontrado
+  if (!suspeito) {
     return res
       .status(404)
-      .json({ message: `Candidato com id ${id} não encontrado!` });
+      .json({ message: `suspeito com id ${id} não encontrado!` });
   }
 
-  return res.status(200).json(candidato);
+  return res.status(200).json(suspeito);
 });
 
-// Rota para atualizar um candidato pelo id
-candidatosRoutes.put("/:id", (req, res) => {
+// Rota para atualizar um suspeito pelo id
+suspeitosRoutes.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { nome, partido, idade, segundo, propostas } = req.body;
+  const { nome, profissao, envolvimento, nivel} = req.body;
 
-  // Busca um candidato pelo id no array de candidatos
-  const candidato = candidatos.find((politico) => politico.id == id);
+  // Busca um suspeito pelo id no array de suspeitos
+  const suspeito = suspeitos.find((suspects) => suspects.id == id);
 
-  // Verifica se o candidato foi encontrado
-  if (!candidato) {
+  // Verifica se o suspeito foi encontrado
+  if (!suspeito) {
     return res
       .status(404)
-      .json({ message: `Candidato com id ${id} não encontrado!` });
+      .json({ message: `suspeito com id ${id} não encontrado!` });
   }
 
-  // Validação dos campos nome e partido
-  if (!nome || !partido) {
+  // Validação dos campos nome e profissão
+  if (!nome || !profissao) {
     return res.status(400).send({
       message: "O nome ou o partido não foi preenchido, criança aleatória!",
     });
   }
 
-  candidato.nome = nome;
-  candidato.partido = partido;
-  candidato.idade = idade;
-  candidato.segundo = segundo;
-  candidato.propostas = propostas;
+  suspeito.nome = nome;
+  suspeito.partido = partido;
+  suspeito.idade = idade;
+  suspeito.segundo = segundo;
+  suspeito.propostas = propostas;
 
   return res.status(200).json({
-    message: "Candidato atualizado com sucesso!",
-    candidato,
+    message: "suspeito atualizado com sucesso!",
+    suspeito,
   });
 });
 
-candidatosRoutes.delete("/:id", (req, res) => {
+suspeitosRoutes.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  // Busca um candidato pelo id no array de candidatos
-  const candidato = candidatos.find((politico) => politico.id == id);
+  // Busca um suspeito pelo id no array de suspeitos
+  const suspeito = suspeitos.find((suspects) => suspects.id == id);
 
-  // Verifica se o candidato foi encontrado
-  if (!candidato) {
+  // Verifica se o suspeito foi encontrado
+  if (!suspeito) {
     return res
       .status(404)
-      .json({ message: `Candidato com id ${id} não encontrado!` });
+      .json({ message: `suspeito com id ${id} não encontrado!` });
   }
 
-  // Remove o candidato do array de candidatos
-  candidatos = candidatos.filter((candidato) => candidato.id != id);
+  // Remove o suspeito do array de suspeitos
+  suspeitos = suspeitos.filter((suspeito) => suspeito.id != id);
 
   return res.status(200).json({
-    message: "Candidato removido com sucesso!",
-    candidato,
+    message: "suspeito removido com sucesso!",
+    suspeito,
   });
 });
 
-export default candidatosRoutes;
+export default suspeitosRoutes;
